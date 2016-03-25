@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>88.5 Jams</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="css/index.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="close">Close</div>
+<div id="controls" class="play-button"></div>
+<div id="main" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="speaker">
+                <img src="img/npr.png"/>
+            </div>
+        </div>
+    </div>
+    <div class="row no-show">
+        <video id="media-player" controls name="media-stream">
+            <source src="http://streams.kqed.org/kqedradio" type="audio/mpeg">
+        </video>
+    </div>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>

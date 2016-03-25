@@ -1,0 +1,80 @@
+html,
+body {
+    background: #FFFFFF;
+    height: 300px;
+    overflow: hidden;
+    width: 300px;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+#main {
+    background: #FFFFFF;
+    height: 275px;
+}
+
+.play-button {
+    background: transparent url('../img/play-button.png') no-repeat;
+    background-size: 50px 50px;
+    position: absolute;
+    top: 133px;
+    left: 150px;
+    z-index: 999999;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.pause-button {
+    background: transparent url('../img/pause-button.png') no-repeat;
+    background-size: 100px 100px;
+    position: absolute;
+    top: 108px;
+    left: 118px;
+    z-index: 999999;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.speaker {
+    text-align: center;
+}
+
+.no-show {
+    visibility: hidden;
+}
+
+#main h1 {
+    color: #fff;
+    padding-right: 6px;
+    padding-top: 5px;
+    text-align: right;
+    text-indent: -10000px;
+}
+
+#main h1 img {
+    height: 31px;
+    width: 195px;
+}
+
+.close {
+    cursor: pointer;
+    display: inline-block;
+    height: 32px;
+    position: absolute;
+    text-indent: -10000px;
+    top: 6px;
+    width: 32px;
+    z-index: 1;
+    -webkit-app-region: no-drag;
+}
+
+.close {
+    background: transparent url('../img/close.png') no-repeat 4px 4px;
+    background-size: 24px 24px;
+    right: 6px;
+}
+
