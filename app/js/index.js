@@ -19,7 +19,6 @@ controls.addEventListener('click', function () {
 });
 
 function setCurrentEpisode() {
-    console.log("Polling");
     var url = 'http://www.kqed.org/radio/schedules/daily/index.jsp'
     request(url, function(err, resp, body) {
         if (err)
