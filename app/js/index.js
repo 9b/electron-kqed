@@ -28,8 +28,10 @@ function setCurrentEpisode() {
         var date = new Date();
         var preface = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
         var previous = null;
+        var setBit = false;
+        var nodeCount = $('ul.tv-daily-prog-list li:not(:last-child)').length;
 
-        $('ul.tv-daily-prog-list li').each(function() {
+        $('ul.tv-daily-prog-list li:not(:last-child)').each(function(idx) {
             var prog_time = $(this).find('div.prog-time').text().replace(/^\s+|\s+$/g, '');
             var loaded = Date.parse(preface + " " + prog_time);
             var prog_title = $(this).find('span.prog-title').text().replace(/^\s+|\s+$/g, '');
@@ -48,10 +50,18 @@ function setCurrentEpisode() {
                 document.getElementById("ep-title").innerHTML = previous.episode;
                 document.getElementById("prog-desc").innerHTML = previous.description;
             } else {
-                previous = obj;
+                if (idx+1 != nodeCount) {
+                    previous = obj;
+                }
                 return;
             }
         });
+
+        if (!setBit) {
+            document.getElementById("prog-title").innerHTML = previous.title;
+            document.getElementById("ep-title").innerHTML = previous.episode;
+            document.getElementById("prog-desc").innerHTML = previous.description;
+        }
     });
 }
 setCurrentEpisode();
