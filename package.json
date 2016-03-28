@@ -7,8 +7,10 @@
     "package": "electron-packager ./ KQED --platform=darwin --arch=x64 --out ~/Desktop/KQED --version 0.30.8 --overwrite --icon=./app/img/app-icon.icns"
   },
   "devDependencies": {
+    "cheerio": "^0.20.0",
     "electron-packager": "^5.2.1",
-    "electron-prebuilt": "^0.30.8"
+    "electron-prebuilt": "^0.30.8",
+    "htmlparser2": "^3.9.0"
   },
   "dependencies": {
     "nconf": "^0.7.2"
