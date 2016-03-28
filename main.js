@@ -11,14 +11,14 @@ app.on('ready', function() {
 
     mainWindow = new BrowserWindow({
         frame: false,
-        height: 285,
+        height: 135,
         resizable: false,
-        width: 328
+        width: 520
     });
 
     mainWindow.loadUrl('file://' + __dirname + '/app/index.html');
-
     setGlobalShortcuts();
+    mainWindow.webContents.send('set-current-show');
 });
 
 function setGlobalShortcuts() {

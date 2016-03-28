@@ -1,28 +1,14 @@
-'use strict';
-
 var htmlparser = require("htmlparser2");
 var os = require("os");
 var request = require('request');
 var cheerio = require('cheerio');
 
-var player = document.getElementById("media-player");
-var controls = document.getElementById("controls");
-controls.addEventListener('click', function () {
-    if (this.className == 'play-button') {
-        controls.className = 'pause-button';
-        player.play();
-    } else {
-        controls.className = 'play-button';
-        player.pause();
-    }
-});
-
-function setCurrentEpisode() {
+function getCurrentEpisode(cb) {
     var url = 'http://www.kqed.org/radio/schedules/daily/index.jsp'
     request(url, function(err, resp, body) {
         if (err)
             throw err;
-        var $ = cheerio.load(body);
+        $ = cheerio.load(body);
         var date = new Date();
         var hour = ((date.getHours() + 11) % 12 + 1);
         var suffix = (date.getHours() >= 12)? "pm" : "am";
@@ -41,23 +27,11 @@ function setCurrentEpisode() {
                 'episode': ep_title,
                 'description': prog_desc
             }
-            document.getElementById("prog-title").innerHTML = prog_title;
-            document.getElementById("ep-title").innerHTML = ep_title;
-            document.getElementById("prog-desc").innerHTML = prog_desc;
+            cb(outline);
         });
     });
 }
 
-setTimeout(setCurrentEpisode(), 30000);
-
-var ipc = require('ipc');
-
-var closeEl = document.querySelector('.close');
-closeEl.addEventListener('click', function () {
-    ipc.send('close-main-window');
-});
-
-ipc.on('global-shortcut', function () {
-    var event = new MouseEvent('click');
-    controls.dispatchEvent(event);
-});
+getCurrentEpisode(function(show) {
+    console.log(show);
+})
