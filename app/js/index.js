@@ -24,26 +24,31 @@ function setCurrentEpisode() {
             throw err;
         var $ = cheerio.load(body);
         var date = new Date();
-        var hour = ((date.getHours() + 11) % 12 + 1);
-        var suffix = (date.getHours() >= 12)? "pm" : "am";
-        var period = hour + ":00 " + suffix;
+        var preface = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+        var previous = null;
 
         $('ul.tv-daily-prog-list li').each(function() {
             var prog_time = $(this).find('div.prog-time').text().replace(/^\s+|\s+$/g, '');
-            if (prog_time != period) {
-                return;
-            }
+            var loaded = Date.parse(preface + " " + prog_time);
             var prog_title = $(this).find('span.prog-title').text().replace(/^\s+|\s+$/g, '');
             var ep_title = $(this).find('strong.ep-title').text().replace(/^\s+|\s+$/g, '');
             var prog_desc = $(this).find('span.prog-descr').text().replace(/^\s+|\s+$/g, '');
-            var outline = {
-                'program': prog_title,
+
+            var obj = {
+                'title': prog_title,
                 'episode': ep_title,
-                'description': prog_desc
+                'description': prog_desc,
+                'ptime': loaded
             }
-            document.getElementById("prog-title").innerHTML = prog_title;
-            document.getElementById("ep-title").innerHTML = ep_title;
-            document.getElementById("prog-desc").innerHTML = prog_desc;
+
+            if (loaded > date.getTime() && date.getTime() > previous.ptime) {
+                document.getElementById("prog-title").innerHTML = previous.title;
+                document.getElementById("ep-title").innerHTML = previous.episode;
+                document.getElementById("prog-desc").innerHTML = previous.description;
+            } else {
+                previous = obj;
+                return;
+            }
         });
     });
 }
