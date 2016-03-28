@@ -1,9 +1,10 @@
 'use strict';
 
+var cheerio = require('cheerio');
 var htmlparser = require("htmlparser2");
+var ipc = require('ipc');
 var os = require("os");
 var request = require('request');
-var cheerio = require('cheerio');
 
 var player = document.getElementById("media-player");
 var controls = document.getElementById("controls");
@@ -18,6 +19,7 @@ controls.addEventListener('click', function () {
 });
 
 function setCurrentEpisode() {
+    console.log("Polling");
     var url = 'http://www.kqed.org/radio/schedules/daily/index.jsp'
     request(url, function(err, resp, body) {
         if (err)
@@ -52,10 +54,8 @@ function setCurrentEpisode() {
         });
     });
 }
-
-setTimeout(setCurrentEpisode(), 30000);
-
-var ipc = require('ipc');
+setCurrentEpisode();
+setInterval(setCurrentEpisode, 30000);
 
 var closeEl = document.querySelector('.close');
 closeEl.addEventListener('click', function () {
